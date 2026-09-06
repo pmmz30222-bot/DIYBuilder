@@ -33,6 +33,8 @@ h1 {
 }
 
 .search {
+    width: 100%;
+    box-sizing: border-box;
     background: white;
     border: 1px solid #ddd;
     border-radius: 40px;
@@ -158,7 +160,30 @@ h1 {
 <h1>Hi, Aung! 👋</h1>
 <div class="subtitle">What will you build today?</div>
 
-<div class="search">🔍 &nbsp; Search parts...</div>
+<input
+    class="search"
+    id="searchParts"
+    type="text"
+    placeholder="🔍  Search parts..."
+    oninput="searchParts()"
+>
+
+<script>
+function searchParts() {
+    const text = document
+        .getElementById("searchParts")
+        .value
+        .toLowerCase();
+
+    document.querySelectorAll(".part").forEach(part => {
+        if (part.innerText.toLowerCase().includes(text)) {
+            part.style.display = "";
+        } else {
+            part.style.display = "none";
+        }
+    });
+}
+</script>
 
 <label class="button scan" for="cameraInput">
     📷<br><br>Scan a Part<br>
