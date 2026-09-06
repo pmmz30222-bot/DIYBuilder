@@ -2,7 +2,7 @@ from flask import Flask, render_template_string
 
 app = Flask(__name__)
 
-HOME = """
+    HOME = """
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,69 +10,202 @@ HOME = """
 <title>DIY Builder</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
-    background: #f8f7fc;
-    font-family: Georgia, serif;
-    color: #222;
+    background: #050b18;
+    color: white;
+    font-family: Arial, sans-serif;
 }
 
 .container {
-    padding: 25px 30px 110px;
+    max-width: 600px;
+    margin: auto;
+    padding: 25px 18px 120px;
 }
 
-h1 {
-    font-size: 38px;
-    margin: 0;
-}
+/* HEADER */
 
-.subtitle {
-    color: #777;
-    font-size: 20px;
-    margin: 8px 0 25px;
-}
-
-.search {
-    width: 100%;
-    box-sizing: border-box;
-    background: white;
-    border: 1px solid #ddd;
-    border-radius: 40px;
-    padding: 20px;
-    font-size: 20px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     margin-bottom: 25px;
 }
 
-.buttons {
-    display: flex;
-    gap: 20px;
+.small {
+    color: #8d96aa;
+    font-size: 13px;
+    letter-spacing: 1px;
 }
 
-.button {
-    flex: 1;
-    width: 80;
-    box-sizing: border-box;
-    padding: 30px 10px;
-    border-radius: 25px;
-    text-align: center;
-    font-size: 22px;
-    display: block;
-    cursor: pointer;
+h1 {
+    margin: 5px 0;
+    font-size: 31px;
 }
+
+.sub {
+    color: #8d96aa;
+    font-size: 15px;
+}
+
+.avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background: linear-gradient(135deg,#7c5cff,#4b35db);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* SEARCH */
+
+.search {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: #101a30;
+    border: 1px solid #293758;
+    border-radius: 18px;
+    padding: 15px 17px;
+    margin-bottom: 18px;
+}
+
+.search input {
+    width: 100%;
+    border: 0;
+    outline: 0;
+    background: transparent;
+    color: white;
+    font-size: 16px;
+}
+
+.search input::placeholder {
+    color: #7e879b;
+}
+
+/* SCAN */
 
 .scan {
-    background: #5142df;
-    color: white;
+    position: relative;
+    overflow: hidden;
+    border-radius: 25px;
+    padding: 23px;
+    background:
+        linear-gradient(
+            135deg,
+            rgba(94,74,235,.95),
+            rgba(35,24,110,.98)
+        );
+    box-shadow: 0 15px 40px rgba(75,55,220,.25);
 }
+
+.scan:after {
+    content: "";
+    position: absolute;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    background: rgba(255,255,255,.06);
+    right: -70px;
+    top: -70px;
+}
+
+.scan-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 16px;
+    background: rgba(255,255,255,.16);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 25px;
+}
+
+.scan h2 {
+    margin: 18px 0 6px;
+    font-size: 24px;
+}
+
+.scan p {
+    color: #d4d0ff;
+    margin: 0;
+}
+
+.scan-btn {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 13px 20px;
+    background: white;
+    color: #5142df;
+    border-radius: 14px;
+    font-weight: bold;
+}
+
+/* MANUAL */
 
 .manual {
-    background: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 13px;
+    padding: 18px;
+    background: #101a30;
+    border: 1px solid #1d2a45;
+    border-radius: 20px;
+    color: white;
+    text-decoration: none;
 }
 
-.section {
-    font-size: 30px;
-    margin-top: 35px;
+.manual-left {
+    display: flex;
+    align-items: center;
+    gap: 13px;
 }
+
+.manual-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 13px;
+    background: #283a70;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.manual small {
+    color: #7f8ba3;
+    display: block;
+    margin-top: 3px;
+}
+
+/* SECTION */
+
+.section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 30px;
+    margin-bottom: 14px;
+}
+
+.section h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.count {
+    color: #8b94a9;
+    font-size: 13px;
+}
+
+/* PARTS */
 
 .parts {
     display: flex;
@@ -80,75 +213,130 @@ h1 {
     overflow-x: auto;
 }
 
-.part {
-    min-width: 110px;
-    background: white;
-    border-radius: 20px;
-    padding: 20px 10px;
-    text-align: center;
-    font-size: 18px;
+.parts::-webkit-scrollbar {
+    display: none;
 }
 
-.icon {
-    font-size: 45px;
+.part {
+    min-width: 95px;
+    padding: 12px;
+    border-radius: 19px;
+    background: #101a30;
+    border: 1px solid #1d2a45;
+    text-align: center;
 }
+
+.part-img {
+    width: 65px;
+    height: 65px;
+    margin: auto;
+    border-radius: 16px;
+    background: #e9e9ed;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 35px;
+}
+
+.part-name {
+    margin-top: 9px;
+    font-size: 13px;
+}
+
+/* BUILDS */
 
 .builds {
     display: flex;
-    gap: 18px;
+    gap: 14px;
     overflow-x: auto;
 }
 
+.builds::-webkit-scrollbar {
+    display: none;
+}
+
 .card {
-    min-width: 270px;
-    background: white;
-    border-radius: 25px;
-    padding: 15px;
-    cursor: pointer;
+    min-width: 245px;
+    overflow: hidden;
+    background: #101a30;
+    border: 1px solid #1d2a45;
+    border-radius: 23px;
 }
 
 .card-img {
-    background: #f0eff5;
-    border-radius: 20px;
-    height: 170px;
+    height: 145px;
+    background: #e9e9ed;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 80px;
+    font-size: 75px;
 }
 
-.card h2 {
-    margin-bottom: 5px;
+.card-content {
+    padding: 15px;
+}
+
+.card h3 {
+    margin: 0 0 8px;
+    font-size: 19px;
 }
 
 .match {
-    color: #3ba86b;
+    color: #39cf8b;
+    font-size: 13px;
+    font-weight: bold;
 }
+
+.time {
+    color: #7f8ba3;
+    margin-top: 8px;
+    font-size: 13px;
+}
+
+/* NAVIGATION */
 
 .bottom {
     position: fixed;
-    bottom: 15px;
-    left: 20px;
-    right: 20px;
-    height: 75px;
-    background: white;
-    border-radius: 35px;
+    left: 15px;
+    right: 15px;
+    bottom: 14px;
+    max-width: 570px;
+    margin: auto;
+    height: 70px;
+    border-radius: 25px;
+    background: rgba(12,20,38,.94);
+    border: 1px solid #26334f;
     display: flex;
     justify-content: space-around;
     align-items: center;
-    box-shadow: 0 3px 20px #ddd;
+    z-index: 20;
+}
+
+.nav {
+    color: #7e899f;
+    text-align: center;
+    font-size: 11px;
+}
+
+.nav-icon {
+    font-size: 21px;
+    margin-bottom: 4px;
+}
+
+.active {
+    color: #826bff;
 }
 
 .plus {
-    background: #5142df;
-    color: white;
-    width: 65px;
-    height: 65px;
-    border-radius: 50%;
+    width: 53px;
+    height: 53px;
+    border-radius: 18px;
+    background: linear-gradient(135deg,#765cff,#4935dc);
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 40px;
+    justify-content: center;
+    font-size: 30px;
+    box-shadow: 0 8px 25px rgba(92,70,230,.4);
 }
 </style>
 </head>
@@ -157,37 +345,52 @@ h1 {
 
 <div class="container">
 
-<h1>Hi, Aung! 👋</h1>
-<div class="subtitle">What will you build today?</div>
+<!-- HEADER -->
 
-<input
-    class="search"
-    id="searchParts"
-    type="text"
-    placeholder="🔍  Search parts..."
-    oninput="searchParts()"
->
+<div class="header">
 
-<script>
-function searchParts() {
-    const text = document.getElementById("searchParts").value.toLowerCase().trim();
+    <div>
+        <div class="small">WELCOME BACK</div>
+        <h1>Hi, Everyone 👋</h1>
+        <div class="sub">Build something amazing today.</div>
+    </div>
 
-    document.querySelectorAll(".parts .part").forEach(part => {
-        const name = part.innerText.toLowerCase();
+    <div class="avatar">E</div>
 
-        if (name.includes(text)) {
-            part.style.display = "block";
-        } else {
-            part.style.display = "none";
-        }
-    });
-}
-</script>
+</div>
 
-<label class="button scan" for="cameraInput">
-    📷<br><br>Scan a Part<br>
-    <small>Use Camera</small>
-</label>
+
+<!-- SEARCH -->
+
+<div class="search">
+
+    🔍
+
+    <input
+        id="searchParts"
+        type="text"
+        placeholder="Search your parts..."
+        oninput="searchParts()"
+    >
+
+</div>
+
+
+<!-- SCAN -->
+
+<div class="scan">
+
+    <div class="scan-icon">▣</div>
+
+    <h2>Scan a Part</h2>
+
+    <p>Identify your components with your camera.</p>
+
+    <label class="scan-btn" for="cameraInput">
+        Scan with Camera
+    </label>
+
+</div>
 
 <input
     id="cameraInput"
@@ -198,473 +401,263 @@ function searchParts() {
     onchange="showScan(event)"
 >
 
+
+<!-- MANUAL -->
+
+<a href="/parts" class="manual">
+
+    <div class="manual-left">
+
+        <div class="manual-icon">＋</div>
+
+        <div>
+            <b>Add parts manually</b>
+            <small>Browse and add your components</small>
+        </div>
+
+    </div>
+
+    <b>›</b>
+
+</a>
+
+
+<!-- YOUR PARTS -->
+
+<div class="section">
+
+    <h2>Your Parts</h2>
+
+    <div class="count">5 parts</div>
+
+</div>
+
+
+<div class="parts">
+
+    <div class="part">
+        <div class="part-img">⚙</div>
+        <div class="part-name">Motor</div>
+    </div>
+
+    <div class="part">
+        <div class="part-img">◉</div>
+        <div class="part-name">Wheel</div>
+    </div>
+
+    <div class="part">
+        <div class="part-img">⚙</div>
+        <div class="part-name">Gear</div>
+    </div>
+
+    <div class="part">
+        <div class="part-img">●</div>
+        <div class="part-name">LED</div>
+    </div>
+
+    <div class="part">
+        <div class="part-img">▭</div>
+        <div class="part-name">Battery</div>
+    </div>
+
+</div>
+
+
+<!-- SUGGESTED BUILDS -->
+
+<div class="section">
+
+    <h2>Suggested Builds</h2>
+
+    <div class="count">See all ›</div>
+
+</div>
+
+
+<div class="builds">
+
+<a href="/mini-fan">
+
+<div class="card">
+
+    <div class="card-img">🌀</div>
+
+    <div class="card-content">
+
+        <h3>Mini Fan</h3>
+
+        <div class="match">● 95% Match</div>
+
+        <div class="time">
+            Easy · 30 min
+        </div>
+
+    </div>
+
+</div>
+
+</a>
+
+
+<div class="card">
+
+    <div class="card-img">🚗</div>
+
+    <div class="card-content">
+
+        <h3>RC Car</h3>
+
+        <div class="match">● 88% Match</div>
+
+        <div class="time">
+            Medium · 2–3 hrs
+        </div>
+
+    </div>
+
+</div>
+
+
+<div class="card">
+
+    <div class="card-img">💡</div>
+
+    <div class="card-content">
+
+        <h3>Desk Lamp</h3>
+
+        <div class="match">● 75% Match</div>
+
+        <div class="time">
+            Easy · 45 min
+        </div>
+
+    </div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- BOTTOM NAV -->
+
+<div class="bottom">
+
+    <div class="nav active">
+        <div class="nav-icon">⌂</div>
+        Home
+    </div>
+
+    <div class="nav">
+        <div class="nav-icon">⌕</div>
+        Search
+    </div>
+
+    <div class="plus">+</div>
+
+    <div class="nav">
+        <div class="nav-icon">▣</div>
+        Projects
+    </div>
+
+    <div class="nav">
+        <div class="nav-icon">○</div>
+        Profile
+    </div>
+
+</div>
+
+
 <script>
+
+function searchParts() {
+
+    const text =
+        document.getElementById("searchParts")
+        .value
+        .toLowerCase()
+        .trim();
+
+    document.querySelectorAll(".parts .part").forEach(part => {
+
+        const name =
+            part.innerText.toLowerCase();
+
+        if (name.includes(text)) {
+            part.style.display = "block";
+        } else {
+            part.style.display = "none";
+        }
+
+    });
+
+}
+
+
 function showScan(event) {
+
     const file = event.target.files[0];
 
-    if (file) {
-        const url = URL.createObjectURL(file);
+    if (!file) return;
 
-        document.body.innerHTML = `
+    const url = URL.createObjectURL(file);
+
+    document.body.innerHTML = `
+
+        <div style="
+            min-height:100vh;
+            background:#050b18;
+            color:white;
+            padding:25px;
+            font-family:Arial;
+        ">
+
+            <h2>← Scan Result</h2>
+
             <div style="
-                background:#f8f7fc;
-                min-height:100vh;
-                padding:25px;
-                font-family:Arial;
-                box-sizing:border-box;
+                background:#101a30;
+                padding:20px;
+                border-radius:25px;
+                text-align:center;
             ">
-                <h2>← Scan a Part</h2>
 
-                <div style="
-                    background:white;
-                    padding:20px;
-                    border-radius:25px;
-                    text-align:center;
-                ">
-                    <h2>Part Photo</h2>
-
-                    <img src="${url}" style="
+                <img
+                    src="${url}"
+                    style="
                         width:100%;
                         max-height:400px;
                         object-fit:contain;
                         border-radius:20px;
-                        background:#eeeef3;
-                    ">
+                    "
+                >
 
-                    <p style="font-size:18px;margin-top:20px;">
-                        📷 Photo captured successfully!
-                    </p>
+                <h2>Part scanned successfully ✓</h2>
 
-                    <button onclick="location.href='/'"
+                <button
+                    onclick="location.href='/'"
                     style="
                         width:100%;
                         border:0;
-                        background:#5142df;
-                        color:white;
                         padding:18px;
                         border-radius:15px;
-                        font-size:20px;
-                    ">
-                        Back to Home
-                    </button>
-                </div>
+                        background:#624cff;
+                        color:white;
+                        font-size:18px;
+                    "
+                >
+                    Back to Home
+                </button>
+
             </div>
-        `;
-    }
+
+        </div>
+    `;
 }
+
 </script>
 
-    <a href="/parts" class="button manual" style="text-decoration:none;color:#222">
-    ➕<br><br>Add Manually<br>
-    <small>Select from list</small>
-</a>
-
-<div class="section">Your Parts</div>
-
-<div class="parts">
-    <div class="part"><div class="icon">⚙️</div>Motor</div>
-    <div class="part"><div class="icon">⚫</div>Wheel</div>
-    <div class="part"><div class="icon">⚙️</div>Gear</div>
-    <div class="part"><div class="icon">🔴</div>LED</div>
-    <div class="part"><div class="icon">🔋</div>Battery</div>
-</div>
-
-<div class="section">Suggested Builds</div>
-
-<div class="builds">
-
-<a href="/mini-fan" style="text-decoration:none;color:#222">
-<div class="card">
-    <div class="card-img">🌀</div>
-    <h2>Mini Fan</h2>
-    <div class="match">● 95% Match</div>
-    <p>Easy · 30 min</p>
-</div>
-</a>
-
-<div class="card">
-    <div class="card-img">🚗</div>
-    <h2>RC Car</h2>
-    <div class="match">● 88% Match</div>
-    <p>Medium · 2-3 hrs</p>
-</div>
-
-<div class="card">
-    <div class="card-img">💡</div>
-    <h2>Desk Lamp</h2>
-    <div class="match">● 75% Match</div>
-    <p>Easy · 45 min</p>
-</div>
-
-</div>
-
-</div>
-
-<div class="bottom">
-    <span>🏠<br>Home</span>
-    <span>🔍<br>Search</span>
-    <span class="plus">+</span>
-    <span>📁<br>Projects</span>
-    <span>👤<br>Profile</span>
-</div>
-
 </body>
 </html>
 """
-
-
-MINI_FAN = """
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Mini Fan</title>
-
-<style>
-body {
-    margin: 0;
-    background: #f8f7fc;
-    font-family: Georgia, serif;
-}
-
-.header {
-    padding: 25px;
-    font-size: 22px;
-}
-
-.image {
-    height: 330px;
-    background: #dddde5;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 150px;
-}
-
-.content {
-    background: white;
-    margin-top: -20px;
-    border-radius: 30px 30px 0 0;
-    padding: 30px;
-}
-
-h1 {
-    font-size: 35px;
-}
-
-.match {
-    color: #42a56c;
-    font-size: 20px;
-}
-
-.info {
-    display: flex;
-    justify-content: space-between;
-    margin: 25px 0;
-}
-
-.parts {
-    display: flex;
-    gap: 15px;
-    overflow-x: auto;
-}
-
-.part {
-    min-width: 85px;
-    text-align: center;
-}
-
-.part-icon {
-    background: #f2f1f6;
-    padding: 18px;
-    border-radius: 15px;
-    font-size: 35px;
-}
-
-.start {
-    display: block;
-    background: #5142df;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    border-radius: 15px;
-    margin-top: 35px;
-    font-size: 22px;
-    text-decoration: none;
-}
-</style>
-</head>
-
-<body>
-
-<div class="header">
-    ← &nbsp; Mini Fan
-</div>
-
-<div class="image">
-    🌀
-</div>
-
-<div class="content">
-
-<h1>Mini Fan</h1>
-
-<div class="match">● 95% Match</div>
-
-<p>A simple table fan using DC motor and your available parts. Perfect for summer!</p>
-
-<div class="info">
-    <div>🟢<br><b>Easy</b><br>Difficulty</div>
-    <div>⏱️<br><b>30 min</b><br>Time</div>
-    <div>📦<br><b>6 items</b><br>Parts</div>
-</div>
-
-<h2>Parts You Need</h2>
-
-<div class="parts">
-
-<div class="part">
-<div class="part-icon">⚙️</div>
-DC Motor<br>x1
-</div>
-
-<div class="part">
-<div class="part-icon">🌀</div>
-Fan Blade<br>x1
-</div>
-
-<div class="part">
-<div class="part-icon">🔘</div>
-Switch<br>x1
-</div>
-
-<div class="part">
-<div class="part-icon">🔋</div>
-Battery<br>x1
-</div>
-
-<div class="part">
-<div class="part-icon">〰️</div>
-Wire<br>x2
-</div>
-
-<div class="part">
-<div class="part-icon">▰</div>
-Base<br>x1
-</div>
-
-</div>
-
-<a class="start" href="/building">
-Start Building
-</a>
-
-</div>
-
-</body>
-</html>
-"""
-
-BUILDING = """
-<!DOCTYPE html>
-<html>
-<head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Assembly Guide</title>
-</head>
-
-<body style="background:#f8f7fc; font-family:Arial; padding:25px;">
-
-    <h2>← Assembly Guide</h2>
-
-    <div style="background:white; padding:25px; border-radius:25px;">
-
-        <h2>Step 1</h2>
-
-        <p style="font-size:20px;">
-            Attach the fan blade to the motor shaft.
-        </p>
-
-        <div style="
-            height:250px;
-            background:#eeeef3;
-            border-radius:20px;
-            display:flex;
-            align-items:center;
-            justify-content:center;
-            font-size:100px;
-        ">
-            ⚙️🌀
-        </div>
-
-        <a href="/building/2"
-           style="
-           display:block;
-           background:#5142df;
-           color:white;
-           text-align:center;
-           padding:18px;
-           margin-top:20px;
-           border-radius:15px;
-           text-decoration:none;
-           ">
-           Next →
-        </a>
-
-    </div>
-
-</body>
-</html>
-"""
-@app.route("/")
-def home():
-    return render_template_string(HOME)
-
-
-@app.route("/mini-fan")
-def mini_fan():
-    return render_template_string(MINI_FAN)
-
-
-@app.route("/building")
-def building():
-    return render_template_string(BUILDING)
-
-
-@app.route("/building/2")
-def building2():
-    return """
-    <body style="background:#f8f7fc;font-family:Arial;padding:25px">
-        <h2>← Assembly Guide</h2>
-        <div style="background:white;padding:25px;border-radius:25px">
-            <h2>Step 2</h2>
-            <p style="font-size:20px">Connect the switch to the motor.</p>
-            <div style="height:250px;background:#eeeef3;border-radius:20px;
-            display:flex;align-items:center;justify-content:center;font-size:80px">
-            ⚙️🔘
-            </div>
-            <a href="/building/3"
-            style="display:block;background:#5142df;color:white;text-align:center;
-            padding:18px;margin-top:20px;border-radius:15px;text-decoration:none">
-            Next →
-            </a>
-        </div>
-    </body>
-    """
-
-
-@app.route("/building/3")
-def building3():
-    return """
-    <body style="background:#f8f7fc;font-family:Arial;padding:25px">
-        <h2>← Assembly Guide</h2>
-        <div style="background:white;padding:25px;border-radius:25px">
-            <h2>Step 3</h2>
-            <p style="font-size:20px">Connect the battery and test the fan.</p>
-            <div style="height:250px;background:#eeeef3;border-radius:20px;
-            display:flex;align-items:center;justify-content:center;font-size:80px">
-            🔋⚙️🌀
-            </div>
-            <a href="/complete"
-            style="display:block;background:#5142df;color:white;text-align:center;
-            padding:18px;margin-top:20px;border-radius:15px;text-decoration:none">
-            Complete ✓
-            </a>
-        </div>
-    </body>
-    """
-
-
-@app.route("/complete")
-def complete():
-    return """
-    <body style="background:#f8f7fc;font-family:Arial;padding:25px;text-align:center">
-        <div style="background:white;padding:40px 20px;border-radius:30px;margin-top:80px">
-            <div style="font-size:90px">🎉</div>
-            <h1>Build Complete!</h1>
-            <p style="font-size:20px">Your Mini Fan is ready!</p>
-            <a href="/"
-            style="display:block;background:#5142df;color:white;padding:18px;
-            border-radius:15px;text-decoration:none;margin-top:30px">
-            Back to Home
-            </a>
-        </div>
-    </body>
-    """
-
-@app.route("/parts")
-def parts():
-    return """
-    <!DOCTYPE html>
-    <html>
-    <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Add Parts</title>
-    <style>
-    body {
-        margin:0;
-        background:#f8f7fc;
-        font-family:Arial,sans-serif;
-        padding:25px;
-    }
-    h1 { font-size:32px; }
-    .part {
-        background:white;
-        margin:12px 0;
-        padding:18px;
-        border-radius:20px;
-        font-size:21px;
-        display:flex;
-        align-items:center;
-        gap:18px;
-    }
-    .icon { font-size:40px; }
-    a {
-        text-decoration:none;
-        color:#222;
-    }
-    </style>
-    </head>
-
-    <body>
-
-    <h1>➕ Add Parts</h1>
-    <p>Select the parts you have.</p>
-
-    <a href="/">
-        <div class="part">⚙️ <b>Motor</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">⚫ <b>Wheel</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">⚙️ <b>Gear</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">🔴 <b>LED</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">🔋 <b>Battery</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">〰️ <b>Wire</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">🌀 <b>Fan Blade</b></div>
-    </a>
-
-    <a href="/">
-        <div class="part">▰ <b>Base</b></div>
-    </a>
-
-    </body>
-    </html>
-    """
-if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=5000)
