@@ -255,7 +255,7 @@ function showScan(event) {
 }
 </script>
 
-    <<a href="/parts" class="button manual" style="text-decoration:none;color:#222">
+    <a href="/parts" class="button manual" style="text-decoration:none;color:#222">
     ➕<br><br>Add Manually<br>
     <small>Select from list</small>
 </a>
