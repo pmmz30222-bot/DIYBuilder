@@ -48,7 +48,7 @@ h1 {
 
 .button {
     flex: 1;
-    width: 0;
+    width: 80;
     box-sizing: border-box;
     padding: 30px 10px;
     border-radius: 25px;
