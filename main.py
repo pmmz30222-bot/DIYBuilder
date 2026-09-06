@@ -48,10 +48,14 @@ h1 {
 
 .button {
     flex: 1;
+    width: 0;
+    box-sizing: border-box;
     padding: 30px 10px;
     border-radius: 25px;
     text-align: center;
     font-size: 22px;
+    display: block;
+    cursor: pointer;
 }
 
 .scan {
