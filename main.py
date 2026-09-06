@@ -230,9 +230,10 @@ function showScan(event) {
 }
 </script>
 
-    <div class="button manual">➕<br><br>Add Manually<br>
-    <small>Select from list</small></div>
-</div>
+    <<a href="/parts" class="button manual" style="text-decoration:none;color:#222">
+    ➕<br><br>Add Manually<br>
+    <small>Select from list</small>
+</a>
 
 <div class="section">Your Parts</div>
 
@@ -567,6 +568,79 @@ def complete():
     </body>
     """
 
+@app.route("/parts")
+def parts():
+    return """
+    <!DOCTYPE html>
+    <html>
+    <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Add Parts</title>
+    <style>
+    body {
+        margin:0;
+        background:#f8f7fc;
+        font-family:Arial,sans-serif;
+        padding:25px;
+    }
+    h1 { font-size:32px; }
+    .part {
+        background:white;
+        margin:12px 0;
+        padding:18px;
+        border-radius:20px;
+        font-size:21px;
+        display:flex;
+        align-items:center;
+        gap:18px;
+    }
+    .icon { font-size:40px; }
+    a {
+        text-decoration:none;
+        color:#222;
+    }
+    </style>
+    </head>
 
+    <body>
+
+    <h1>➕ Add Parts</h1>
+    <p>Select the parts you have.</p>
+
+    <a href="/">
+        <div class="part">⚙️ <b>Motor</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">⚫ <b>Wheel</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">⚙️ <b>Gear</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">🔴 <b>LED</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">🔋 <b>Battery</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">〰️ <b>Wire</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">🌀 <b>Fan Blade</b></div>
+    </a>
+
+    <a href="/">
+        <div class="part">▰ <b>Base</b></div>
+    </a>
+
+    </body>
+    </html>
+    """
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000)
