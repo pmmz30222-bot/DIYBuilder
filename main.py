@@ -156,9 +156,75 @@ h1 {
 
 <div class="search">🔍 &nbsp; Search parts...</div>
 
-<div class="buttons">
-    <div class="button scan">📷<br><br>Scan a Part<br>
-    <small>Use Camera</small></div>
+<label class="button scan" for="cameraInput">
+    📷<br><br>Scan a Part<br>
+    <small>Use Camera</small>
+</label>
+
+<input
+    id="cameraInput"
+    type="file"
+    accept="image/*"
+    capture="environment"
+    style="display:none"
+    onchange="showScan(event)"
+>
+
+<script>
+function showScan(event) {
+    const file = event.target.files[0];
+
+    if (file) {
+        const url = URL.createObjectURL(file);
+
+        document.body.innerHTML = `
+            <div style="
+                background:#f8f7fc;
+                min-height:100vh;
+                padding:25px;
+                font-family:Arial;
+                box-sizing:border-box;
+            ">
+                <h2>← Scan a Part</h2>
+
+                <div style="
+                    background:white;
+                    padding:20px;
+                    border-radius:25px;
+                    text-align:center;
+                ">
+                    <h2>Part Photo</h2>
+
+                    <img src="${url}" style="
+                        width:100%;
+                        max-height:400px;
+                        object-fit:contain;
+                        border-radius:20px;
+                        background:#eeeef3;
+                    ">
+
+                    <p style="font-size:18px;margin-top:20px;">
+                        📷 Photo captured successfully!
+                    </p>
+
+                    <button onclick="location.href='/'"
+                    style="
+                        width:100%;
+                        border:0;
+                        background:#5142df;
+                        color:white;
+                        padding:18px;
+                        border-radius:15px;
+                        font-size:20px;
+                    ">
+                        Back to Home
+                    </button>
+                </div>
+            </div>
+        `;
+    }
+}
+</script>
 
     <div class="button manual">➕<br><br>Add Manually<br>
     <small>Select from list</small></div>
