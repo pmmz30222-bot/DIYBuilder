@@ -170,14 +170,13 @@ h1 {
 
 <script>
 function searchParts() {
-    const text = document
-        .getElementById("searchParts")
-        .value
-        .toLowerCase();
+    const text = document.getElementById("searchParts").value.toLowerCase().trim();
 
-    document.querySelectorAll(".part").forEach(part => {
-        if (part.innerText.toLowerCase().includes(text)) {
-            part.style.display = "";
+    document.querySelectorAll(".parts .part").forEach(part => {
+        const name = part.innerText.toLowerCase();
+
+        if (name.includes(text)) {
+            part.style.display = "block";
         } else {
             part.style.display = "none";
         }
