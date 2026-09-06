@@ -421,3 +421,82 @@ BUILDING = """
 </body>
 </html>
 """
+@app.route("/")
+def home():
+    return render_template_string(HOME)
+
+
+@app.route("/mini-fan")
+def mini_fan():
+    return render_template_string(MINI_FAN)
+
+
+@app.route("/building")
+def building():
+    return render_template_string(BUILDING)
+
+
+@app.route("/building/2")
+def building2():
+    return """
+    <body style="background:#f8f7fc;font-family:Arial;padding:25px">
+        <h2>← Assembly Guide</h2>
+        <div style="background:white;padding:25px;border-radius:25px">
+            <h2>Step 2</h2>
+            <p style="font-size:20px">Connect the switch to the motor.</p>
+            <div style="height:250px;background:#eeeef3;border-radius:20px;
+            display:flex;align-items:center;justify-content:center;font-size:80px">
+            ⚙️🔘
+            </div>
+            <a href="/building/3"
+            style="display:block;background:#5142df;color:white;text-align:center;
+            padding:18px;margin-top:20px;border-radius:15px;text-decoration:none">
+            Next →
+            </a>
+        </div>
+    </body>
+    """
+
+
+@app.route("/building/3")
+def building3():
+    return """
+    <body style="background:#f8f7fc;font-family:Arial;padding:25px">
+        <h2>← Assembly Guide</h2>
+        <div style="background:white;padding:25px;border-radius:25px">
+            <h2>Step 3</h2>
+            <p style="font-size:20px">Connect the battery and test the fan.</p>
+            <div style="height:250px;background:#eeeef3;border-radius:20px;
+            display:flex;align-items:center;justify-content:center;font-size:80px">
+            🔋⚙️🌀
+            </div>
+            <a href="/complete"
+            style="display:block;background:#5142df;color:white;text-align:center;
+            padding:18px;margin-top:20px;border-radius:15px;text-decoration:none">
+            Complete ✓
+            </a>
+        </div>
+    </body>
+    """
+
+
+@app.route("/complete")
+def complete():
+    return """
+    <body style="background:#f8f7fc;font-family:Arial;padding:25px;text-align:center">
+        <div style="background:white;padding:40px 20px;border-radius:30px;margin-top:80px">
+            <div style="font-size:90px">🎉</div>
+            <h1>Build Complete!</h1>
+            <p style="font-size:20px">Your Mini Fan is ready!</p>
+            <a href="/"
+            style="display:block;background:#5142df;color:white;padding:18px;
+            border-radius:15px;text-decoration:none;margin-top:30px">
+            Back to Home
+            </a>
+        </div>
+    </body>
+    """
+
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
